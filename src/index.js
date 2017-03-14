@@ -13,6 +13,27 @@ const controlPointsToLists = (controlPoints) => {
 };
 
 
+const combinePoints = (_points, _controlPoints) => {
+	let points = [..._points];
+	let controlPoints = [..._controlPoints];
+	let results = [];
+	while (true) {
+		results = [
+			...results,
+			...R.take(1, points),
+			...R.take(2, controlPoints),
+		];
+		points = R.drop(1, points);
+		controlPoints = R.drop(2, controlPoints);
+		if (controlPoints.length === 0) {
+			break;
+		}
+	}
+	return [
+		...results,
+		...R.take(1, points),
+	];
+};
 
 
 const getControlPoints = R.pipe(
