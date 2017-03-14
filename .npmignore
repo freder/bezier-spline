@@ -1,0 +1,7 @@
+src/
+test.js
+yarn.lock
+.babelrc
+.editorconfig
+.eslintrc
+.npmignore
