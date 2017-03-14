@@ -1,6 +1,6 @@
 const R = require('ramda');
 
-module.exports = 
+module.exports =
 function transpose(lists) {
 	const len = Math.min(
 		...(lists.map(R.prop('length')))
@@ -8,9 +8,9 @@ function transpose(lists) {
 	return R.range(0, len)
 		.reduce(
 			(acc, i) => [
-				...acc, 
+				...acc,
 				lists.map(R.nth(i))
-			], 
+			],
 			[]
 		);
 };

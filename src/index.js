@@ -46,8 +46,8 @@ function getSegments(bezierPoints) {
 		.map((i) => {
 			const fromIndex = i * 3;
 			const toIndex = fromIndex + 4;
-			return R.slice(fromIndex, toIndex, bezierPoints)
-		})
+			return R.slice(fromIndex, toIndex, bezierPoints);
+		});
 };
 
 
