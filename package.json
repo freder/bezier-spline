@@ -1,5 +1,8 @@
 {
   "name": "@freder/bezier-spline",
+  "keywords": [
+  	"bezier", "curve", "spline", "control", "point"
+  ],
   "version": "0.2.1",
   "main": "dist/index.js",
   "dependencies": {
