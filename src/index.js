@@ -13,3 +13,11 @@ const controlPointsToLists = (controlPoints) => {
 };
 
 
+
+
+const getControlPoints = R.pipe(
+	transpose,
+	R.map(computeControlPoints),
+	R.map(controlPointsToLists),
+	transpose
+);
