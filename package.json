@@ -1,5 +1,23 @@
 {
   "name": "@freder/bezier-spline",
   "version": "0.0.0",
-  "main": "dist/index.js"
+  "main": "dist/index.js",
+  "dependencies": {
+    "ramda": "^0.23.0"
+  },
+  "devDependencies": {
+    "jest": "^19.0.2"
+  },
+  "scripts": {
+    "test": "jest",
+    "test:watch": "yarn run test -- --watch --notify"
+  },
+  "jest": {
+    "roots": [
+      "src",
+      "__tests__"
+    ],
+    "globals": {
+    }
+  }
 }
