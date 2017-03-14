@@ -1,9 +1,13 @@
 {
   "name": "@freder/bezier-spline",
   "keywords": [
-  	"bezier", "curve", "spline", "control", "point"
+    "bezier",
+    "curve",
+    "spline",
+    "control",
+    "point"
   ],
-  "version": "0.2.1",
+  "version": "0.2.2",
   "main": "dist/index.js",
   "dependencies": {
     "ramda": "^0.23.0"
