@@ -1,0 +1,5 @@
+{
+  "name": "@freder/bezier-spline",
+  "version": "0.0.0",
+  "main": "dist/index.js"
+}
