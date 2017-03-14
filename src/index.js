@@ -38,6 +38,19 @@ function combinePoints(_points, _controlPoints) {
 };
 
 
+const getSegments =
+module.exports.getSegments =
+function getSegments(bezierPoints) {
+	const numSegments = (bezierPoints.length - 1) / 3;
+	return R.range(0, numSegments)
+		.map((i) => {
+			const fromIndex = i * 3;
+			const toIndex = fromIndex + 4;
+			return R.slice(fromIndex, toIndex, bezierPoints)
+		})
+};
+
+
 const getControlPoints =
 module.exports.getControlPoints = R.pipe(
 	transpose,
