@@ -13,7 +13,9 @@ const controlPointsToLists = (controlPoints) => {
 };
 
 
-const combinePoints = (_points, _controlPoints) => {
+const combinePoints =
+module.exports.combinePoints =
+function combinePoints(_points, _controlPoints) {
 	let points = [..._points];
 	let controlPoints = [..._controlPoints];
 	let results = [];
@@ -36,7 +38,8 @@ const combinePoints = (_points, _controlPoints) => {
 };
 
 
-const getControlPoints = R.pipe(
+const getControlPoints =
+module.exports.getControlPoints = R.pipe(
 	transpose,
 	R.map(computeControlPoints),
 	R.map(controlPointsToLists),
