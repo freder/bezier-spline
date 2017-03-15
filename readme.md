@@ -7,9 +7,9 @@ const bezierSpline = require('@freder/bezier-spline');
 
 // list of on-curve points
 const points = [
-		[0, 0, 0], // x, y, z
-		[1, 1, 0],
-		[2, 0, 0],
+	[0, 0, 0], // x, y, z
+	[1, 1, 0],
+	[2, 0, 0],
 ];
 
 const controlPoints = bezierSpline.getControlPoints(points);
