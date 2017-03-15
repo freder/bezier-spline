@@ -24,7 +24,7 @@
     "test": "jest",
     "test:watch": "yarn run test -- --watch --notify",
     "compile": "babel -d dist/ src/",
-    "prepublish": "npm run compile"
+    "prepublish": "yarn run compile"
   },
   "jest": {
     "roots": [
