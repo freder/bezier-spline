@@ -51,6 +51,10 @@ const segments = bezierSpline.getSegments(combined);
 used in combination with [three.js](https://threejs.org/) and [@freder/piecewise](https://github.com/freder/piecewise) to get a bezier spline:
 
 ```javascript
+const R = require('ramda');
+const THREE = require('three');
+const piecewise = require('@freder/piecewise');
+
 /**
  * creates a bezier spline that is compatible with `THREE.Curve` in that it provides a `getPointAt()` method for sampling. control points are automatically calculated.
  * @param  {Array<THREE.Vector3>} onCurvePoints — list of on-curve points
@@ -58,37 +62,49 @@ used in combination with [three.js](https://threejs.org/) and [@freder/piecewise
  */
 function makeBezierSpline(onCurvePoints) {
 	const points = onCurvePoints.map((p) => [p.x, p.y, p.z]);
-
 	const bezierPoints = bezierSpline.combinePoints(
 		points,
 		bezierSpline.getControlPoints(points)
 	);
 
-	const segments = bezierSpline.getSegments(bezierPoints)
+	// make curve segments
+	const listToVector3 = (coords) => (new THREE.Vector3(...coords));
+	const curveSegments = bezierSpline.getSegments(bezierPoints)
 		.map((segment) => (new THREE.CubicBezierCurve3(
-				...segment
-					.map((p) => (new THREE.Vector3(...p)))
+				...segment.map(listToVector3)
 			))
 		);
 
-	const tStep = 1 / segments.length;
-
-	const intervals = segments
-		.map((waypoint, i) => [
-			i * tStep,
-			(i + 1) * tStep
-		]);
-
-	const getPointAt = piecewise.easing(
-		intervals.map((interval, i) => {
-			return {
-				tInterval: interval,
-				tMap: [0, 1],
-				easingFn: (t) => segments[i].getPointAt(t),
+	// calculate t intervals based on curve segments lengths:
+	const segmentLengths = curveSegments.map((curve) => curve.getLength());
+	const totalLength = R.sum(segmentLengths);
+	const ts = segmentLengths.reduce(
+		({ lenCounter, ts }, len, i) => {
+			const _lenCounter = lenCounter + len;
+			const t = _lenCounter / totalLength;
+			const acc = {
+				lenCounter: _lenCounter,
+				ts: [...ts, t],
 			};
-		})
+			return (i === segmentLengths.length - 1)
+				? acc.ts
+				: acc;
+		},
+		{ lenCounter: 0, ts: [0] }
+	);
+	const tIntervals = R.zip(
+		R.dropLast(1, ts),
+		R.drop(1, ts)
 	);
 
-	return { getPointAt };
+	const pieces = tIntervals.map((tInterval, i) => {
+		return {
+			tInterval,
+			tMap: [0, 1],
+			easingFn: (t) => curveSegments[i].getPointAt(t),
+		};
+	});
+
+	return { getPointAt: piecewise.easing(pieces) };
 };
 ```
