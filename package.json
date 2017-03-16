@@ -7,7 +7,7 @@
     "control",
     "point"
   ],
-  "version": "0.2.3",
+  "version": "0.2.4",
   "main": "dist/index.js",
   "dependencies": {
     "ramda": "^0.23.0"
@@ -24,7 +24,7 @@
     "test": "jest",
     "test:watch": "yarn run test -- --watch --notify",
     "compile": "babel -d dist/ src/",
-    "prepublish": "npm run compile"
+    "prepublish": "yarn run compile"
   },
   "jest": {
     "roots": [
